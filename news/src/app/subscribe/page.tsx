@@ -1,8 +1,10 @@
 "use client";
+
 import { useSearchParams } from "next/navigation";
 import { FormEvent, useState } from "react";
 import toast from "react-hot-toast";
-import { Dog } from "lucide-react";
+import { DogIcon } from "lucide-react";
+import { subscribe } from "@/actions/add.subscribe";
 
 const Page = () => {
   const [value, setValue] = useState("");
@@ -12,7 +14,25 @@ const Page = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+    setLoading(true);
+
+    try {
+      const res = await subscribe({ email: value, username });
+
+      setLoading(false);
+
+      if (res.error) {
+        toast.error(res.error);
+      } else {
+        toast.success("You are subscribed. 😎😎");
+      }
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+      toast.error("An unexpected error occurred.");
+    }
+
+    setValue("");
   };
 
   return (
@@ -20,7 +40,7 @@ const Page = () => {
       <div className="flex items-center space-x-2 pb-8">
         <h1 className="text-7xl capitalize text-[#ad5389]">{username}</h1>
         <h1 className="text-6xl font-bold text-[#C33764]">News</h1>
-        <Dog size={32} />
+        <DogIcon size={32} />
         <h1 className="text-6xl font-bold text-[#1D2671]">Wave</h1>
       </div>
 

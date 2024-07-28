@@ -1,7 +1,9 @@
-"user server"
+"use server";
 
 import { connectDb } from "@/lib/db";
 import { clerkClient } from "@clerk/nextjs/server";
+import type { User } from "@clerk/clerk-sdk-node";
+import Subscriber from "@/models/subscriber.model";
 
 interface SubscribeParams {
   email: string;
@@ -13,13 +15,42 @@ export const subscribe = async ({ email, username }: SubscribeParams) => {
     await connectDb();
 
     // Fetch all users
-    const allUsers = await clerkClient.users.getUserList();
+    const paginatedUsers = await clerkClient.users.getUserList();
+    const allUsers: User[] = paginatedUsers.data; // Extracting the users from the paginated response
 
     // Find the newsletter owner
-    // const newsletterOwner = allUsers.find((i) => i.username === username);
+    const newsletterOwner = allUsers.find((user: User) => user.username === username);
+
+    if (!newsletterOwner) {
+      console.log(`Username ${username} is not valid!`);
+      return { error: "Username is not valid!" };
+    }
+
+    console.log(`Newsletter owner ID: ${newsletterOwner.id}`);
+
+    // Check if subscriber exists
+    const isSubscriberExist = await Subscriber.findOne({
+      email,
+      newsletterOwnerId: newsletterOwner.id,
+    });
+
+    if (isSubscriberExist) {
+      console.log(`Email ${email} already exists for newsletter owner ${newsletterOwner.id}!`);
+      return { error: "Email already exists!" };
+    }
+
+    const subscriber = await Subscriber.create({
+      email,
+      newsletterOwnerId: newsletterOwner.id,
+    });
+
+    // Convert Mongoose document to plain object
+    const plainSubscriber = subscriber.lean();
+
+    return { success: "You are subscribed. 😎😎", subscriber: plainSubscriber };
+
   } catch (error) {
     console.error("Error in subscribe function:", error);
-    // Handle the error appropriately (logging, returning a specific error message, etc.)
-    throw new Error("Failed to subscribe user. Please try again later.");
+    return { error: "Failed to subscribe user. Please try again later." };
   }
 };
