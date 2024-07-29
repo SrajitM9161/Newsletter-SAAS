@@ -13,10 +13,10 @@ const About = () => {
           Welcome to News Wave! We are a newsletter website dedicated to bringing you the latest and most exciting news from around the world.
         </p>
         <p className="text-lg mb-4">
-          Our mission is to keep you informed and engaged with high-quality content curated just for you. Whether it's breaking news, insightful articles, or entertaining stories, we've got you covered.
+          Our mission is to keep you informed and engaged with high-quality content curated just for you. Whether it&apos;s breaking news, insightful articles, or entertaining stories, we&apos;ve got you covered.
         </p>
         <p className="text-lg mb-4">
-          News Wave stands out in today's crowded news landscape by prioritizing quality over quantity. We believe in delivering well-researched and thoughtfully curated news that informs, entertains, and inspires our readers.
+          News Wave stands out in today&apos;s crowded news landscape by prioritizing quality over quantity. We believe in delivering well-researched and thoughtfully curated news that informs, entertains, and inspires our readers.
         </p>
         <p className="text-lg mb-4">
           Our team of dedicated editors and writers work tirelessly to bring you stories that matter. From in-depth analysis of current events to human interest pieces that touch your heart, News Wave is your trusted source for reliable news.
