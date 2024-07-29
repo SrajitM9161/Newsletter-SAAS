@@ -10,7 +10,11 @@ interface SubscribeParams {
   username: string;
 }
 
-export const subscribe = async ({ email, username }: SubscribeParams) => {
+interface SubscribeResponse {
+  error?: string;
+}
+
+export const subscribe = async ({ email, username }: SubscribeParams): Promise<SubscribeResponse> => {
   try {
     await connectDb();
 
@@ -39,16 +43,12 @@ export const subscribe = async ({ email, username }: SubscribeParams) => {
       return { error: "Email already exists!" };
     }
 
-    const subscriber = await Subscriber.create({
+    await Subscriber.create({
       email,
       newsletterOwnerId: newsletterOwner.id,
     });
 
-    // Convert Mongoose document to plain object
-    const plainSubscriber = subscriber.lean();
-
-    return { success: "You are subscribed. 😎😎", subscriber: plainSubscriber };
-
+    return {};
   } catch (error) {
     console.error("Error in subscribe function:", error);
     return { error: "Failed to subscribe user. Please try again later." };

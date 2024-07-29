@@ -26,24 +26,24 @@ export const sideBarItems: DashboardSideBarTypes[] = [
     icon: <Edit3 />,
     section: 'main',
   },
-  {
-    title: "Grow",
-    url: "/dashboard/grow",
-    icon: <TrendingUp />,
-    section: 'main',
-  },
+  // {
+  //   title: "Grow",
+  //   url: "/dashboard/grow",
+  //   icon: <TrendingUp />,
+  //   section: 'main',
+  // },
   {
     title: "Audience",
     url: "/dashboard/audience",
     icon: <Users />,
     section: 'main',
   },
-  {
-    title: "Settings",
-    url: "/dashboard/settings",
-    icon: <Settings />,
-    section: 'bottom',
-  },
+  // {
+  //   title: "Settings",
+  //   url: "/dashboard/settings",
+  //   icon: <Settings />,
+  //   section: 'bottom',
+  // },
   {
     title: "View Site",
     url: "/",

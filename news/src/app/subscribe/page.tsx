@@ -18,10 +18,9 @@ const Page = () => {
 
     try {
       const res = await subscribe({ email: value, username });
-
       setLoading(false);
 
-      if (res.error) {
+      if (res?.error) {
         toast.error(res.error);
       } else {
         toast.success("You are subscribed. 😎😎");

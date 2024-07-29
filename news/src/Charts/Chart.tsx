@@ -1,7 +1,7 @@
 "use client";
-// import { subscribersAnalytics } from "@/actions/subscribers.analytics";
-// import useSubscribersAnalytics from "@/shared/hooks/useSubscribersAnalytics";
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
+import { SubscribersAnalytics } from "@/actions/subscriber.analytics";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -13,8 +13,10 @@ import {
   Legend,
   BarElement,
   ArcElement,
+  ScatterController,
 } from "chart.js";
-import { Line, Bar } from "react-chartjs-2";
+import { Line, Bar, Scatter } from "react-chartjs-2";
+import { Loader } from "lucide-react";
 
 ChartJS.register(
   CategoryScale,
@@ -23,29 +25,38 @@ ChartJS.register(
   LineElement,
   BarElement,
   ArcElement,
+  ScatterController,
   Title,
   Tooltip,
   Legend
 );
 
-interface subscribersAnalyticsData {
+interface SubscribersAnalyticsData {
   month: string;
   count: number;
 }
 
 const SubscribersChart = () => {
-  // const { subscribersData, loading } = useSubscribersAnalytics();
+  const [data, setData] = useState<SubscribersAnalyticsData[]>([]);
+  const [loading, setLoading] = useState(true);
   const [chartType, setChartType] = useState("line");
 
-  const data: subscribersAnalyticsData[] = [
-    { month: "Jan 2024", count: 2400 },
-    { month: "Feb 2024", count: 1398 },
-    { month: "Mar 2024", count: 9800 },
-    { month: "Apr 2024", count: 3908 },
-    { month: "May 2024", count: 4800 },
-    { month: "Jun 2024", count: 3800 },
-    { month: "Jul 2024", count: 4300 },
-  ];
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await SubscribersAnalytics();
+        if (response) {
+          setData(response.last7Months);
+        }
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching subscribers analytics data:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const chartData = {
     labels: data.map((item) => item.month),
@@ -61,24 +72,14 @@ const SubscribersChart = () => {
     ],
   };
 
-  const stackedChartData = {
-    labels: data.map((item) => item.month),
+
+  const scatterChartData = {
     datasets: [
       {
-        type: "bar" as const,
         label: "Subscribers",
-        data: data.map((item) => item.count),
+        data: data.map((item, index) => ({ x: index, y: item.count })),
         backgroundColor: "rgba(171, 83, 137, 0.5)",
         borderColor: "#ad5389",
-        borderWidth: 2,
-      },
-      {
-        type: "line" as const,
-        label: "Trend",
-        data: data.map((item) => item.count),
-        borderColor: "#3c1053",
-        borderWidth: 2,
-        fill: false,
       },
     ],
   };
@@ -124,8 +125,8 @@ const SubscribersChart = () => {
         return <Line data={chartData} options={options} />;
       case "bar":
         return <Bar data={chartData} options={options} />;
-      case "stacked":
-        // return <Bar data={stackedChartData} options={options} />;
+      case "scatter":
+        return <Scatter data={scatterChartData} options={options} />;
       default:
         return <Line data={chartData} options={options} />;
     }
@@ -133,7 +134,7 @@ const SubscribersChart = () => {
 
   return (
     <div
-      className="my-5 p-5 border rounded w-full md:h-[55vh] xl:h-[60vh]"
+      className="my-5 p-10 border rounded w-full md:h-[55vh] xl:h-[60vh]"
       style={{ background: "linear-gradient(to right, #ad5389, #3c1053)" }}
     >
       <div className="w-full flex justify-between items-center mb-4">
@@ -145,7 +146,7 @@ const SubscribersChart = () => {
         >
           <option value="line">Line Chart</option>
           <option value="bar">Bar Chart</option>
-          <option value="stacked">Stacked Bar/Line Chart</option>
+          <option value="scatter">Scatter Chart</option>
         </select>
       </div>
       <div className="flex w-full items-center justify-between">
@@ -162,13 +163,13 @@ const SubscribersChart = () => {
           </span>
         </div>
       </div>
-      {/* {loading ? (
+      {loading ? (
         <div className="h-[85%] flex items-center justify-center w-full">
-          <h5 className="text-white">Loading...</h5>
+          <Loader className="animate-spin text-white" size={48} />
         </div>
-      ) : ( */}
-      <div className="w-full h-[85%] mt-5">{renderChart()}</div>
-      {/* )} */}
+      ) : (
+        <div className="w-full h-[85%] mt-5">{renderChart()}</div>
+      )}
     </div>
   );
 };

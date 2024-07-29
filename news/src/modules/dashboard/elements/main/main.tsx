@@ -48,10 +48,12 @@ const Main = () => {
 
             {/* Newsletter button and resources outside the main container */}
             <div className='fixed top-5 right-5 flex flex-col items-end space-y-5'>
+                <Link href="/dashboard/write">
                 <Button className='bg-black text-white text-lg rounded px-6 mt-4 hover:bg-[#463bbd]'>
                     <Pen className='mr-1 ml-[-5px]' />
                     Start Writing
                 </Button>
+                </Link>
 
                 <div className="bg-gradient-to-r from-[#654ea3] to-[#eaafc8] p-5 rounded">
                     <h5 className="text-xl font-medium text-black">Resources</h5>
