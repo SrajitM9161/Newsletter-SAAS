@@ -1,13 +1,17 @@
 "use client"
 
+"use client"
+
 import DashboardOverViewCard from '@/app/Common/DashBoardOverviewCard'
 import SubscribersChart from '@/Charts/Chart'
 import { Button } from '@/components/ui/button'
 import { useUser } from '@clerk/nextjs'
-import { Pen, Link as LinkIcon, Copy } from 'lucide-react'
+import { Pen, Link as LinkIcon, Copy, Move } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
+import { ResizableBox } from 'react-resizable'
+import 'react-resizable/css/styles.css'
 
 const Main = () => {
     const { user } = useUser()
@@ -55,8 +59,17 @@ const Main = () => {
                 </Button>
                 </Link>
 
-                <div className="bg-gradient-to-r from-[#654ea3] to-[#eaafc8] p-5 rounded">
-                    <h5 className="text-xl font-medium text-black">Resources</h5>
+                <ResizableBox
+                    width={300}
+                    height={200}
+                    minConstraints={[200, 150]}
+                    maxConstraints={[500, 300]}
+                    className="bg-gradient-to-r from-[#654ea3] to-[#eaafc8] p-5 rounded relative"
+                >
+                    <div className="absolute bottom-0 right-0 cursor-nwse-resize">
+                        <Move size={16} />
+                    </div>
+                    <h5 className="text-xl font-medium text-black">Subscriber Public Link</h5>
                     <div className="border rounded p-5 my-3 bg-white">
                         {/* home page url */}
                         <div>
@@ -80,7 +93,7 @@ const Main = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </ResizableBox>
             </div>
         </div>
     )
