@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { ClerkProvider } from "@clerk/nextjs";
 import Providers from "@/shared/utils/provider";
+import Notification from "@/shared/utils/Notification";
 const font = DM_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -27,6 +28,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <Providers>
+            <Notification/>
             {children}
             </Providers>
           </ThemeProvider>
