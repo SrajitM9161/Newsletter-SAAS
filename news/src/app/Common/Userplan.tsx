@@ -10,7 +10,7 @@ const UserPlan = () => {
           <div
             className="w-[70px] shadow cursor-pointer h-[25px] flex justify-center items-center space-x-1 rounded bg-[#E77CAE]"
           >
-            <CloudLightning className="text-white w-3 h-3" /> {/* Using Lucid icon */}
+            <CloudLightning className="text-white w-3 h-3" /> 
             <span className="text-white text-xs">Upgrade</span>
           </div>
         </div>
@@ -21,7 +21,7 @@ const UserPlan = () => {
           defaultValue={1}
           className="max-w-full"
         />
-        <h6 className="text-xs text-white">0 / 200</h6>
+        <h6 className="text-xs text-white">0 / 100</h6>
       </div>
     </div>
   );

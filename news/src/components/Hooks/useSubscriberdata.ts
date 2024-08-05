@@ -7,15 +7,15 @@ import { getSubscribers } from "@/actions/get.subscriber";
 const useSubscriberData = () => {
   const [data, setData] = useState<any[]>([]);
   const { user } = useClerk();
-  const [Loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (user?.id) {
-      GetSubscribers();
+      getSubscribersData();
     }
   }, [user]);
 
-  const GetSubscribers = async () => {
+  const getSubscribersData = async () => {
     try {
       if (user?.id) {
         console.log("Fetching subscribers for user ID: ", user.id);
@@ -23,6 +23,8 @@ const useSubscriberData = () => {
         if (res) {
           console.log("Fetched Subscribers: ", res); // Log fetched data
           setData(res);
+        } else {
+          console.log("No data fetched");
         }
       }
     } catch (error) {
@@ -32,7 +34,7 @@ const useSubscriberData = () => {
     }
   };
 
-  return { data, Loading };
+  return { data, loading };
 };
 
 export default useSubscriberData;

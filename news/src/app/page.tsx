@@ -39,7 +39,7 @@ export default function Home() {
             price: "₹0",
             description: "No commitment",
             features: [
-              "Up to 2,500 subscribers",
+              "Up to 100 subscribers",
               "Unlimited sends",
               "Custom newsletter",
               "Newsletter analytics",
@@ -51,7 +51,7 @@ export default function Home() {
             price: "₹299 /month",
             description: "Billed Monthly",
             features: [
-              "Up to 10,000 subscribers",
+              "Up to 500 subscribers",
               "Custom domains",
               "API access",
               "Newsletter community",
@@ -63,7 +63,7 @@ export default function Home() {
             price: "₹600 /month",
             description: "Billed Monthly",
             features: [
-              "Up to 100,000 subscribers",
+              " Unlimited subscribers",
               "Referral program",
               "AI support",
               "Advanced support system",
