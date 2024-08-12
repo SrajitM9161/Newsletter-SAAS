@@ -1,6 +1,5 @@
 import Navbar from "@/components/global/NavBar";
 import { ContainerScroll } from "@/providers/container-scroll-animation";
-import { Button } from "@/components/ui/button";
 import { InfiniteMovingCards } from "@/providers/infinite-moving-cards";
 import { clients } from "@/lib/Constants";
 import { LampComponent } from "@/providers/lamp";

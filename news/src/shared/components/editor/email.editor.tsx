@@ -27,7 +27,7 @@ const Emaileditor: React.FC<EmaileditorProps> = ({ subjectTitle }) => {
       const { design, html } = data;
       setJsonData(design);
       await sendEmail({
-        userEmail: ["srajitmishra121@gmail.com"], // Example recipient
+        userEmail: ["srajitmishra121@gmail.com"], 
         subject: subjectTitle,
         content: html,
       }).then((res) => {
