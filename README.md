@@ -29,8 +29,3 @@ In NewsWave, a newsletter allows users to:
 
 ## Getting Started
 
-### Prerequisites
-
-- Node.js 
-- MongoDB 
-- ...
