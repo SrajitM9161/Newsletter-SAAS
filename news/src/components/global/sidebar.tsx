@@ -12,7 +12,7 @@ const DashboardSidebar = () => {
     <div className='p-2'>
       <div className='p-2 flex items-center rounded'>
         <span className='text-2xl'>
-        <Link href="/" passHref> {/* Wrap Home icon in Link for / route */}
+        <Link href="/" passHref> 
           <span className='text-2xl cursor-pointer'><Home /></span>
         </Link>
         </span>
